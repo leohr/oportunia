@@ -24,7 +24,7 @@ getDataFromFile <- function(file.name) {
            prom_lect4b_rbd,
            prom_mate4b_rbd, 
            noaplica) %>% 
-    filter(noaplica == 0)
+    filter(noaplica == 0 | noaplica == "Rbd y curso rinde Simce")
   
   return(df)
 }
