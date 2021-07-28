@@ -22,13 +22,27 @@ getDataFromFile <- function(file.name) {
            rural_rbd,
            mrun, 
            doc_genero, 
-           doc_fec_nac)
+           doc_fec_nac, 
+           horas_contrato,
+           ano_servicio_sistema, 
+           tit_id_1, 
+           tip_tit_id_1, 
+           esp_id_1,
+           nivel1, 
+           nivel2) %>% 
+    merge(y = df.tit, by.x = "tit_id_1", by.y = "tit_id", all.x = TRUE) %>% 
+    merge(y = df.tip_tit, by.x = "tip_tit_id_1", by.y = "tip_tit_id", all.x = TRUE)
   
   return(df)
 }
 
 ####################################### Get data ##################################################
 
+# Catalogs 
+df.tit <- data.table::fread("catalogs/tit_id.csv")
+df.tip_tit <- data.table::fread("catalogs/tip_tit_id.csv")
+
+# Main data frames 
 df2003 <- getDataFromFile("data/Docentes 2003_PUBLICA.csv")
 df2004 <- getDataFromFile("data/Docentes 2004_PUBLICA.csv")
 df2005 <- getDataFromFile("data/Docentes 2005_PUBLICA.csv")
@@ -50,7 +64,7 @@ df2020 <- getDataFromFile("data/20200727_Docentes_2020_20200630_PUBL.csv")
 
 ####################################### Main task #################################################
 
-df <- rbindlist(lapply(paste0("df", 2003:2020), get))
+df <- rbindlist(lapply(paste0("df", 2003:2020), get)) 
 
 ####################################### Save output ###############################################
 
